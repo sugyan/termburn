@@ -1,7 +1,6 @@
 package termburn
 
 import (
-	"math"
 	"math/rand"
 
 	"github.com/nsf/termbox-go"
@@ -52,8 +51,7 @@ func (t *terminal) update() (err error) {
 				sum += t.values[i+1][j]
 			}
 			val := sum / float32(num)
-			a := float32(math.Pow(math.E, math.Log(0.001)/float64(t.row)))
-			val += 0.1 * (rand.Float32() + a/2.0 - 1.0)
+			val += 0.1*(rand.Float32()-0.5) - 0.5/float32(t.row)
 			t.values[i][j] = clip(val)
 		}
 	}
