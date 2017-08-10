@@ -19,7 +19,6 @@ func Run() {
 
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	termbox.SetOutputMode(termbox.Output256)
-	t := newTerminal()
 
 	ch := make(chan termbox.Event)
 	go func() {
@@ -28,6 +27,8 @@ func Run() {
 		}
 	}()
 
+	width, height := termbox.Size()
+	t := newTerminal(width, height)
 loop:
 	for {
 		select {
@@ -37,6 +38,8 @@ loop:
 				if ev.Key == termbox.KeyCtrlC || ev.Key == termbox.KeyEsc {
 					break loop
 				}
+			case termbox.EventResize:
+				t = newTerminal(ev.Width, ev.Height)
 			}
 			break
 		default:

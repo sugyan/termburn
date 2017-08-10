@@ -13,8 +13,7 @@ type terminal struct {
 	values   [][]float32
 }
 
-func newTerminal() *terminal {
-	col, row := termbox.Size()
+func newTerminal(col, row int) *terminal {
 	row++
 	values := make([][]float32, row)
 	for i := 0; i < row; i++ {
